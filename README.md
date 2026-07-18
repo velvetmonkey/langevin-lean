@@ -1,5 +1,6 @@
 # langevin-lean
 
+[![thread](https://img.shields.io/badge/%F0%9F%A7%B5-how%20it%20works-1DA1F2)](https://x.com/thevelvetmonke)
 [![Lean 4](https://img.shields.io/badge/Lean-4.28.0-blue)](https://lean-lang.org/)
 [![Mathlib](https://img.shields.io/badge/Mathlib-v4.28.0-purple)](https://github.com/leanprover-community/mathlib4)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
@@ -12,7 +13,15 @@ Lean 4 formal proofs for a deterministic bounded-noise model of Langevin dynamic
 
 **Zero sorry statements.** Standard axioms only (`propext`, `Classical.choice`, `Quot.sound`).
 
-## Why it matters
+## What this is, and why it matters
+
+This library studies a deterministic bounded-noise analogue of the unadjusted Langevin update. Its headline theorem, `LangevinSetup.langevin_convergence`, proves geometric decay of squared distance to a minimizer up to an explicit noise-dependent radius.
+
+The proof exposes the contraction-plus-noise mechanism. Lipschitz and strong-monotonicity assumptions control the exact gradient step, a scaled Young inequality absorbs the perturbation cross term, and a linear recurrence gives the global bound with `rho_eff < 1`.
+
+This is deliberately not a stochastic Langevin convergence theorem. The perturbations are any vectors satisfying a deterministic norm bound, and the conclusion concerns distance to a minimizer. The library does not model Gaussian noise, Brownian motion, an SDE, stationary distributions, or convergence in KL or Wasserstein distance.
+
+## Background and motivation
 
 The overdamped Langevin SDE for sampling from a distribution proportional to `exp(-f)` is:
 
